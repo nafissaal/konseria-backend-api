@@ -1,13 +1,11 @@
 const Hapi = require('@hapi/hapi');
-const routes = require('../routes');
-const mysql = require('mysql');
 
-const pool = mysql.createPool({
-  host: 'DESKTOP-NJ370JU',
-  user: 'root@localhost',
-  password: 'MS7531^_^ql',
-  database: 'konseriadb',
-});
+const concertRoutes = require('./routes/concertRoutes');
+const historyRoutes = require('./routes/historyRoutes');
+const orderRoutes = require('./routes/orderRoutes');
+const paymentRoutes = require('./routes/paymentRoutes');
+const ticketRoutes = require('./routes/ticketRoutes');
+const userRoutes = require('./routes/userRoutes');
 
 const init = async () => {
   const server = Hapi.server({
@@ -20,7 +18,7 @@ const init = async () => {
     },
   });
 
-  server.route(routes);
+  server.route(concertRoutes, historyRoutes, orderRoutes, paymentRoutes, ticketRoutes, userRoutes);
 
   await server.start();
   console.log(`Server berjalan pada ${server.info.uri}`);
