@@ -1,14 +1,23 @@
 const {
+  createUserHandler,
+  loginUserHandler,
   getAllUsersHandler,
   getUserByIdHandler,
   updateUserHandler,
+  deleteUserHandler,
 } = require('../handlers/userHandlers');
 
 const userRoutes = [
   {
     method: 'POST',
     path: '/users',
-    handler: addUserHandler,
+    handler: createUserHandler,
+  },
+
+  {
+    method: 'POST',
+    path: '/login',
+    handler: loginUserHandler,
   },
 
   {
@@ -27,6 +36,12 @@ const userRoutes = [
     method: 'POST',
     path: '/users',
     handler: updateUserHandler,
+  },
+
+  {
+    method: 'DELETE',
+    path: '/users/{userID}',
+    handler: deleteUserHandler,
   },
 
 ];
