@@ -12,7 +12,7 @@ const historyRoutes = [
 
   {
     method: 'GET',
-    path: '/histories/{historyID}',
+    path: '/histories/{historyId}',
     handler: getHistoryByIdHandler,
   },
 

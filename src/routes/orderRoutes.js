@@ -12,7 +12,7 @@ const orderRoutes = [
 
   {
     method: 'GET',
-    path: '/orders/{orderID}',
+    path: '/orders/{orderId}',
     handler: getOrderByIdHandler,
   },
 

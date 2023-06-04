@@ -1,23 +1,28 @@
+const crypto = require('crypto');
 const {
   getConnectionFromPool,
   executeQuery,
   releaseConnection,
 } = require('../helpers');
 
+
 // POST /users - Membuat akun pengguna baru
 const createUserHandler = async (request, h) => {
   try {
     const {
-      username, name, email, password, noHP, profileURL,
+      name, email, username, password, noHP, profileURL,
     } = request.payload;
 
-    const query = 'INSERT INTO User (username, name, email, password, noHP, profileURL, status) VALUES (?, ?, ?, ?, ?, ?, \'active\')';
+    // Hash password SHA-256
+    const hashedPassword = crypto.createHash('sha256').update(password).digest('hex');
 
-    const values = [username, name, email, password, noHP, profileURL];
+    const query = 'INSERT INTO Users (name, email, username, password, noHP, profileURL, status) VALUES (?, ?, ?, ?, ?, ?, \'active\')';
+
+    const values = [name, email, username, hashedPassword, noHP, profileURL];
 
     const connection = await getConnectionFromPool();
     const result = await executeQuery(connection, query, values);
-    const userID = result.insertId;
+    const userId = result.insertId;
 
     await releaseConnection(connection);
 
@@ -25,7 +30,7 @@ const createUserHandler = async (request, h) => {
       status: 'success',
       message: 'User telah dibuat',
       data: {
-        userID,
+        userId,
       },
     }).code(201);
   } catch (error) {
@@ -42,20 +47,20 @@ const loginUserHandler = async (request, h) => {
   try {
     const { username, password } = request.payload;
 
-    const query = 'SELECT * FROM User WHERE username = ? AND password = ?';
+    const query = 'SELECT * FROM Users WHERE username = ? AND password = ?';
 
     const values = [username, password];
 
     const connection = await getConnectionFromPool();
-    const [user] = await executeQuery(connection, query, values);
+    const [users] = await executeQuery(connection, query, values);
 
     await releaseConnection(connection);
 
-    if (user) {
+    if (users) {
       return h.response({
         status: 'success',
         message: 'Login berhasil',
-        data: user[0],
+        data: users,
       }).code(200);
     }
     return h.response({
@@ -73,16 +78,16 @@ const loginUserHandler = async (request, h) => {
 
 // GET/users - Memanggil semua pengguna
 const getAllUsersHandler = async (request, h) => {
-  const query = 'SELECT * FROM user';
+  const query = 'SELECT * FROM users';
 
   try {
-    const user = await executeQuery(query);
+    const users = await executeQuery(query);
     return h.response({
       status: 'success',
-      data: user,
+      data: users,
     }).code(200);
-  } catch (err) {
-    console.error('Error saat memanggil user:', err);
+  } catch (error) {
+    console.error('Error saat memanggil user:', error);
     return h.response({
       status: 'error',
       message: 'Error saat memanggil user',
@@ -90,26 +95,26 @@ const getAllUsersHandler = async (request, h) => {
   }
 };
 
-// GET /users/{userID} - Memanggil profil pengguna tertentu
+// GET /users/{userId} - Memanggil profil pengguna tertentu
 const getUserByIdHandler = async (request, h) => {
-  const { userID } = request.params;
-  const query = 'SELECT * FROM users WHERE userID = ?';
-  const values = [userID];
+  const { userId } = request.params;
+  const query = 'SELECT * FROM users WHERE userId = ?';
+  const values = [userId];
 
   try {
-    const user = await executeQuery(query, values);
-    if (user.length > 0) {
+    const users = await executeQuery(query, values);
+    if (users.length > 0) {
       return h.response({
         status: 'success',
-        data: user[0],
+        data: users[0],
       }).code(200);
     }
     return h.response({
       status: 'fail',
       message: 'User tidak ditemukan',
     }).code(404);
-  } catch (err) {
-    console.error('Error saat memanggil user:', err);
+  } catch (error) {
+    console.error('Error saat memanggil user:', error);
     return h.response({
       status: 'error',
       massage: 'Gagal memanggil user',
@@ -117,19 +122,19 @@ const getUserByIdHandler = async (request, h) => {
   }
 };
 
-// PUT /users/{userID} - Mengupdate profil pengguna tertentu
+// PUT /users/{userId} - Mengupdate profil pengguna tertentu
 const updateUserHandler = async (request, h) => {
   try {
-    const { userID } = request.params;
+    const { userId } = request.params;
 
     const {
-      username, name, email, password, noHP, profileURL,
+      name, email, username, password, noHP, profileURL,
     } = request.payload;
 
-    const query = `UPDATE User SET username = ?, name = ?, email = ?, password = ?, 
-    noHP = ?, profileURL = ? WHERE userID = ?`;
+    const query = `UPDATE Users SET name = ?, email = ?, username = ?, password = ?, 
+    noHP = ?, profileURL = ? WHERE userId = ?`;
 
-    const values = [username, name, email, password, noHP, profileURL, userID];
+    const values = [name, email, username, password, noHP, profileURL, userId];
 
     const connection = await getConnectionFromPool();
     await executeQuery(connection, query, values);
@@ -152,10 +157,10 @@ const updateUserHandler = async (request, h) => {
 // DELETE /users/{userID} - Menonaktifkan user dengan userID
 const deleteUserHandler = async (request, h) => {
   try {
-    const { userID } = request.params;
+    const { userId } = request.params;
 
-    const query = 'UPDATE User SET status = ? WHERE userID = ?';
-    const values = ['inactive', userID];
+    const query = 'UPDATE Users SET status = ? WHERE userId = ?';
+    const values = ['inactive', userId];
 
     const connection = await getConnectionFromPool();
     await executeQuery(connection, query, values);
@@ -167,7 +172,7 @@ const deleteUserHandler = async (request, h) => {
       message: 'User telah di non-aktifkan',
     }).code(200);
   } catch (error) {
-    console.error('Error saat menghapus user:', error);
+    console.error('Error saat menon-aktifkan user:', error);
     return h.response({
       status: 'error',
       message: 'Gagal menon-aktifkan user',

@@ -28,7 +28,7 @@ const userRoutes = [
 
   {
     method: 'POST',
-    path: '/users/{userID}',
+    path: '/users/{userId}',
     handler: getUserByIdHandler,
   },
 

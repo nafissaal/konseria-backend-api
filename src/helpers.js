@@ -9,9 +9,9 @@ const pool = mysql.createPool({
 
 // Helper function (memanggil koneksi dari connection pool)
 const getConnectionFromPool = () => new Promise((resolve, reject) => {
-  pool.getConnection((err, connection) => {
-    if (err) {
-      reject(err);
+  pool.getConnection((error, connection) => {
+    if (error) {
+      reject(error);
     } else {
       resolve(connection);
     }
@@ -20,9 +20,9 @@ const getConnectionFromPool = () => new Promise((resolve, reject) => {
 
 // Helper function (mengeksekusi SQL query)
 const executeQuery = (connection, query, values) => new Promise((resolve, reject) => {
-  connection.query(query, values, (err, result) => {
-    if (err) {
-      reject(err);
+  connection.query(query, values, (error, result) => {
+    if (error) {
+      reject(error);
     } else {
       resolve(result);
     }
@@ -31,9 +31,9 @@ const executeQuery = (connection, query, values) => new Promise((resolve, reject
 
 // Helper function (mengembalikan koneksi kembali ke connection pool)
 const releaseConnection = (connection) => new Promise((resolve, reject) => {
-  connection.release((err) => {
-    if (err) {
-      reject(err);
+  connection.release((error) => {
+    if (error) {
+      reject(error);
     } else {
       resolve();
     }

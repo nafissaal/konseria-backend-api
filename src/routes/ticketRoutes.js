@@ -1,8 +1,6 @@
 const {
   getAllTicketsHandler,
   getTicketByIdHandler,
-  addTicketHandler,
-  addTicketTradingHandler,
 } = require('../handlers/ticketHandlers');
 
 const ticketRoutes = [
@@ -14,20 +12,8 @@ const ticketRoutes = [
 
   {
     method: 'GET',
-    path: '/tickets/{ticketID}',
+    path: '/tickets/{ticketId}',
     handler: getTicketByIdHandler,
-  },
-
-  {
-    method: 'POST',
-    path: '/tickets',
-    handler: addTicketHandler,
-  },
-
-  {
-    method: 'POST',
-    path: '/tickets/{ticketID}/sell',
-    handler: addTicketTradingHandler,
   },
 
 ];

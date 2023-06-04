@@ -1,38 +1,51 @@
-const { nanoid } = require('nanoid');
-const concerts = require('../data/concerts');
+const {
+  executeQuery,
+} = require('../helpers');
 
 // GET /concerts - Memanggil daftar konser
-const getAllConcertsHandler = () => ({
-  status: 'success',
-  data: {
-    concerts,
-  },
-});
+const getAllConcertsHandler = async (request, h) => {
+  const query = 'SELECT * FROM concerts';
+
+  try {
+    const concerts = await executeQuery(query);
+    return h.response({
+      status: 'success',
+      data: concerts,
+    }).code(200);
+  } catch (error) {
+    console.error('Error saat memanggil konser:', error);
+    return h.response({
+      status: 'error',
+      message: 'Error saat memanggil konser',
+    }).code(500);
+  }
+};
 
 // GET /concerts/:concertId - Memanggil konser tertentu
-const getConcertByIdHandler = (request, h) => {
-  const { concertID } = request.params;
+const getConcertByIdHandler = async (request, h) => {
+  const { concertId } = request.params;
+  const query = 'SELECT * FROM concerts WHERE concertId = ?';
+  const values = [concertId];
 
-  const concert = concerts.filter((c) => c.id === concertID)[0];
-
-  if (concert) {
-    const response = h
-      .response({
+  try {
+    const concerts = await executeQuery(query, values);
+    if (concerts.length > 0) {
+      return h.response({
         status: 'success',
-        data: {
-          concert,
-        },
-      });
-    response.code(200);
-    return response;
+        data: concerts[0],
+      }).code(200);
+    }
+    return h.response({
+      status: 'fail',
+      message: 'Konser tidak ditemukan',
+    }).code(404);
+  } catch (error) {
+    console.error('Error saat memanggil konser:', error);
+    return h.response({
+      status: 'error',
+      massage: 'Gagal memanggil konser',
+    }).code(500);
   }
-
-  const response = h.response({
-    status: 'fail',
-    message: 'Konser tidak ditemukan',
-  });
-  response.code(404);
-  return response;
 };
 
 module.exports = {
