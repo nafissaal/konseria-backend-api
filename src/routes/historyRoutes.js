@@ -19,6 +19,3 @@ const historyRoutes = [
 ];
 
 module.exports = historyRoutes;
-
-
-

@@ -1,6 +1,9 @@
 const {
   getAllOrdersHandler,
   getOrderByIdHandler,
+  creteOrderHandler,
+  updateOrderStatusHandler,
+  cancelOrderHandler,
 } = require('../handlers/orderHandlers');
 
 const orderRoutes = [
@@ -16,10 +19,23 @@ const orderRoutes = [
     handler: getOrderByIdHandler,
   },
 
+  {
+    method: 'POST',
+    path: '/orders',
+    handler: creteOrderHandler,
+  },
+
+  {
+    method: 'PUT',
+    path: '/orders/{orderId}',
+    handler: updateOrderStatusHandler,
+  },
+
+  {
+    method: 'DELETE',
+    path: '/orders/{orderId}',
+    handler: cancelOrderHandler,
+  },
 ];
 
 module.exports = orderRoutes;
-
-
-
-

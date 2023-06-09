@@ -1,8 +1,8 @@
 const crypto = require('crypto');
 const {
   getConnectionFromPool,
-  executeQuery,
   releaseConnection,
+  executeQuery,
 } = require('../helpers');
 
 

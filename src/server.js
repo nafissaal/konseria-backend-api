@@ -18,7 +18,14 @@ const init = async () => {
     },
   });
 
-  server.route(concertRoutes, historyRoutes, orderRoutes, paymentRoutes, ticketRoutes, userRoutes);
+  server.route([
+    ...concertRoutes,
+    ...historyRoutes,
+    ...orderRoutes,
+    ...paymentRoutes,
+    ...ticketRoutes,
+    ...userRoutes,
+  ]);
 
   await server.start();
   console.log(`Server berjalan pada ${server.info.uri}`);

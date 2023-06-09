@@ -49,12 +49,86 @@ const getTicketByIdHandler = async (request, h) => {
 };
 
 // POST/tickets - Membuat tiket baru
+const createTicketHandler = async (request, h) => {
+  const {
+    concertId, type, price, quantity, availableQuantity,
+  } = request.payload;
+  const query = 'INSERT INTO Tickets (concertId, type, price, quantity, availableQuantity) VALUES (?, ?, ?, ?, ?)';
+  const values = [concertId, type, price, quantity, availableQuantity];
 
+  try {
+    const result = await executeQuery(query, values);
+    const createdTicketId = result.insertId;
+    return h.response({
+      status: 'success',
+      message: 'Tiket telah dibuat',
+      data: {
+        ticketId: createdTicketId,
+      },
+    }).code(201);
+  } catch (error) {
+    console.error('Error saat membuat tiket:', error);
+    return h.response({
+      status: 'error',
+      message: 'Gagal membuat tiket',
+    }).code(500);
+  }
+};
 
-// POST /tickets/:ticketId/sell - Menjual tiket trading
+// PUT /tickets/{ticketID} - Update a specific ticket by ticketID
+const updateTicketHandler = async (request, h) => {
+  const { ticketId } = request.params;
+  const {
+    concertId, type, price, quantity, availableQuantity,
+  } = request.payload;
+  const query = 'UPDATE Tickets SET concertId = ?, type = ?, price = ?, quantity = ?, availableQuantity = ? WHERE ticketId = ?';
+  const values = [concertId, type, price, quantity, availableQuantity, ticketId];
 
+  try {
+    await executeQuery(query, values);
+    return h.response({
+      status: 'success',
+      message: 'Ticket telah diupdate',
+    }).code(200);
+  } catch (error) {
+    console.error('Error saat mengupdate tiket:', error);
+    return h.response({
+      status: 'error',
+      message: 'Gagal mengupdate tiket',
+    }).code(500);
+  }
+};
+
+// POST /tickets/:ticketId/sell - Resale ticket that already bought
+const resaleTicketHandler = async (request, h) => {
+  const { ticketId } = request.params;
+  const { sellerId, buyerId } = request.payload;
+  const query = 'INSERT INTO ResaleTickets (ticketId, sellerId, buyerId) VALUES (?, ?, ?)';
+  const values = [ticketId, sellerId, buyerId];
+
+  try {
+    const result = await executeQuery(query, values);
+    const createdResaleTicketId = result.insertId;
+    return h.response({
+      status: 'success',
+      message: 'Tiket trading telah dibuat',
+      data: {
+        resaleTicketId: createdResaleTicketId,
+      },
+    }).code(201);
+  } catch (error) {
+    console.error('Error saat membuat tiket trading:', error);
+    return h.response({
+      status: 'error',
+      message: 'gagal membuat tiket trading',
+    }).code(500);
+  }
+};
 
 module.exports = {
   getAllTicketsHandler,
   getTicketByIdHandler,
+  createTicketHandler,
+  updateTicketHandler,
+  resaleTicketHandler,
 };

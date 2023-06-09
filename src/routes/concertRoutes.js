@@ -1,6 +1,9 @@
 const {
   getAllConcertsHandler,
   getConcertByIdHandler,
+  createConcertHandler,
+  updateConcertHandler,
+  deleteConcertHandler,
 } = require('../handlers/concertHandlers');
 
 const concertRoutes = [
@@ -12,12 +15,27 @@ const concertRoutes = [
 
   {
     method: 'GET',
-    path: '/concerts/{ticketID}',
+    path: '/concerts/{concertId}',
     handler: getConcertByIdHandler,
   },
 
+  {
+    method: 'POST',
+    path: '/concerts',
+    handler: createConcertHandler,
+  },
+
+  {
+    method: 'PUT',
+    path: '/concerts/{concertId}',
+    handler: updateConcertHandler,
+  },
+
+  {
+    method: 'DELETE',
+    path: '/concerts/{concertId}',
+    handler: deleteConcertHandler,
+  },
 ];
 
 module.exports = concertRoutes;
-
-

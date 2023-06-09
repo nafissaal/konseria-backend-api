@@ -16,7 +16,7 @@ const getAllHistoriesHandler = async (request, h) => {
     console.error('Error saat memanggil riwayat:', error);
     return h.response({
       status: 'error',
-      message: 'Error saat memanggil riwayat',
+      message: 'Gagal memanggil riwayat',
     }).code(500);
   }
 };
@@ -37,13 +37,13 @@ const getHistoryByIdHandler = async (request, h) => {
     }
     return h.response({
       status: 'fail',
-      message: 'Riwayat tidak ditemukan',
+      message: 'Riwayat pesanan tidak ditemukan',
     }).code(404);
   } catch (error) {
-    console.error('Error saat memanggil riwayat:', error);
+    console.error('Error saat memanggil riwayat pesanan:', error);
     return h.response({
       status: 'error',
-      massage: 'Gagal memanggil riwayat',
+      massage: 'Gagal memanggil riwayat pesanan',
     }).code(500);
   }
 };
