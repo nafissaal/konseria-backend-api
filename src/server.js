@@ -4,6 +4,7 @@ const concertRoutes = require('./routes/concertRoutes');
 const historyRoutes = require('./routes/historyRoutes');
 const orderRoutes = require('./routes/orderRoutes');
 const paymentRoutes = require('./routes/paymentRoutes');
+const rootRoutes = require('./routes/rootRoutes');
 const ticketRoutes = require('./routes/ticketRoutes');
 const userRoutes = require('./routes/userRoutes');
 
@@ -23,6 +24,7 @@ const init = async () => {
     ...historyRoutes,
     ...orderRoutes,
     ...paymentRoutes,
+    ...rootRoutes,
     ...ticketRoutes,
     ...userRoutes,
   ]);

@@ -51,13 +51,14 @@ const getOrderByIdHandler = async (request, h) => {
 // POST /orders: Membuat order baru
 const creteOrderHandler = async (request, h) => {
   const {
-    userId, ticketId, quantity, orderType,
+    userId, ticketId, quantity, orderType, sellerId,
   } = request.payload;
+
   const orderDate = new Date().toISOString();
   const status = 'pending';
 
-  const query = 'INSERT INTO Orders (userId, ticketId, quantity, orderDate, status, orderType) VALUES (?, ?, ?, ?, ?, ?)';
-  const values = [userId, ticketId, quantity, orderDate, status, orderType];
+  const query = 'INSERT INTO Orders (userId, ticketId, quantity, orderDate, status, orderType, sellerId) VALUES (?, ?, ?, ?, ?, ?)';
+  const values = [userId, ticketId, quantity, orderDate, status, orderType, sellerId];
 
   try {
     const result = await executeQuery(query, values);

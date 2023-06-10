@@ -12,49 +12,49 @@ const {
 const userRoutes = [
   {
     method: 'POST',
-    path: '/users',
+    path: '/konseria/users',
     handler: createUserHandler,
   },
 
   {
     method: 'POST',
-    path: '/login',
+    path: '/konseria/login',
     handler: loginUserHandler,
   },
 
   {
     method: 'GET',
-    path: '/users',
+    path: '/konseria/users',
     handler: getAllUsersHandler,
   },
 
   {
     method: 'GET',
-    path: '/users/{userId}',
+    path: '/konseria/users/{userId}',
     handler: getUserByIdHandler,
   },
 
   {
     method: 'GET',
-    path: '/users/{userId}/tickets/seller',
+    path: '/konseria/users/{userId}/tickets/seller',
     handler: getSellerTicketsHandler,
   },
 
   {
     method: 'GET',
-    path: '/users/{userId}/tickets/buyer',
+    path: '/konseria/users/{userId}/tickets/buyer',
     handler: getBuyerTicketsHandler,
   },
 
   {
     method: 'GET',
-    path: '/users',
+    path: '/konseria/users',
     handler: updateUserHandler,
   },
 
   {
     method: 'DELETE',
-    path: '/users/{userID}',
+    path: '/konseria/users/{userID}',
     handler: deleteUserHandler,
   },
 

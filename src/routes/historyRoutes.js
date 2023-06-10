@@ -6,13 +6,13 @@ const {
 const historyRoutes = [
   {
     method: 'GET',
-    path: '/histories',
+    path: '/konseria/histories',
     handler: getAllHistoriesHandler,
   },
 
   {
     method: 'GET',
-    path: '/histories/{historyId}',
+    path: '/konseria/histories/{historyId}',
     handler: getHistoryByIdHandler,
   },
 

@@ -9,31 +9,31 @@ const {
 const orderRoutes = [
   {
     method: 'GET',
-    path: '/orders',
+    path: '/konseria/orders',
     handler: getAllOrdersHandler,
   },
 
   {
     method: 'GET',
-    path: '/orders/{orderId}',
+    path: '/konseria/orders/{orderId}',
     handler: getOrderByIdHandler,
   },
 
   {
     method: 'POST',
-    path: '/orders',
+    path: '/konseria/orders',
     handler: creteOrderHandler,
   },
 
   {
     method: 'PUT',
-    path: '/orders/{orderId}',
+    path: '/konseria/orders/{orderId}',
     handler: updateOrderStatusHandler,
   },
 
   {
     method: 'DELETE',
-    path: '/orders/{orderId}',
+    path: '/konseria/orders/{orderId}',
     handler: cancelOrderHandler,
   },
 ];

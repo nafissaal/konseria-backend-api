@@ -120,7 +120,7 @@ const updateTicketHandler = async (request, h) => {
   }
 };
 
-// POST /tickets/:ticketId/sell - Resale ticket that already bought
+// POST /tickets/:ticketId/sell - Resale ticket (trading)
 const resaleTicketHandler = async (request, h) => {
   try {
     const { ticketId } = request.params;

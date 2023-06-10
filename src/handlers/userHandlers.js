@@ -139,10 +139,10 @@ const getSellerTicketsHandler = async (request, h) => {
       data: tickets,
     }).code(200);
   } catch (error) {
-    console.error('Error while retrieving seller tickets:', error);
+    console.error('Error saat memanggil penjual:', error);
     return h.response({
       status: 'error',
-      message: 'Failed to retrieve seller tickets',
+      message: 'Gagal memanggil penjual',
     }).code(500);
   }
 };
@@ -162,10 +162,10 @@ const getBuyerTicketsHandler = async (request, h) => {
       data: tickets,
     }).code(200);
   } catch (error) {
-    console.error('Error while retrieving buyer tickets:', error);
+    console.error('Error saat memanggil pembeli:', error);
     return h.response({
       status: 'error',
-      message: 'Failed to retrieve buyer tickets',
+      message: 'Gagal memanggil pembeli',
     }).code(500);
   }
 };

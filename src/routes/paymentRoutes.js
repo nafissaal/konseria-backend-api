@@ -9,31 +9,31 @@ const {
 const paymentRoutes = [
   {
     method: 'GET',
-    path: '/payments',
+    path: '/konseria/payments',
     handler: getAllPaymentsHandler,
   },
 
   {
     method: 'GET',
-    path: '/payments/{paymentId}',
+    path: '/konseria/payments/{paymentId}',
     handler: getPaymentByIdHandler,
   },
 
   {
     method: 'POST',
-    path: '/payments',
+    path: '/konseria/payments',
     handler: createPaymentHandler,
   },
 
   {
     method: 'PUT',
-    path: '/payments/{paymentId}',
+    path: '/konseria/payments/{paymentId}',
     handler: updatePaymentHandler,
   },
 
   {
     method: 'DELETE',
-    path: '/payments/{paymentId}',
+    path: '/konseria/payments/{paymentId}',
     handler: deletePaymentHandler,
   },
 ];

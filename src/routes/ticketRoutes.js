@@ -9,31 +9,31 @@ const {
 const ticketRoutes = [
   {
     method: 'GET',
-    path: '/tickets',
+    path: '/konseria/tickets',
     handler: getAllTicketsHandler,
   },
 
   {
     method: 'GET',
-    path: '/tickets/{ticketId}',
+    path: '/konseria/tickets/{ticketId}',
     handler: getTicketByIdHandler,
   },
 
   {
     method: 'POST',
-    path: '/tickets',
+    path: '/konseria/tickets',
     handler: createTicketHandler,
   },
 
   {
     method: 'PUT',
-    path: '/tickets/{ticketId}',
+    path: '/konseria/tickets/{ticketId}',
     handler: updateTicketHandler,
   },
 
   {
     method: 'POST',
-    path: '/tickets/{ticketId}/sell',
+    path: '/konseria/tickets/{ticketId}/sell',
     handler: resaleTicketHandler,
   },
 

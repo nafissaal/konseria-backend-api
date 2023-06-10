@@ -9,31 +9,31 @@ const {
 const concertRoutes = [
   {
     method: 'GET',
-    path: '/concerts',
+    path: '/konseria/concerts',
     handler: getAllConcertsHandler,
   },
 
   {
     method: 'GET',
-    path: '/concerts/{concertId}',
+    path: '/konseria/concerts/{concertId}',
     handler: getConcertByIdHandler,
   },
 
   {
     method: 'POST',
-    path: '/concerts',
+    path: '/konseria/concerts',
     handler: createConcertHandler,
   },
 
   {
     method: 'PUT',
-    path: '/concerts/{concertId}',
+    path: '/konseria/concerts/{concertId}',
     handler: updateConcertHandler,
   },
 
   {
     method: 'DELETE',
-    path: '/concerts/{concertId}',
+    path: '/konseria/concerts/{concertId}',
     handler: deleteConcertHandler,
   },
 ];

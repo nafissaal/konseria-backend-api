@@ -90,6 +90,7 @@ DROP TABLE IF EXISTS `orders`;
 CREATE TABLE `orders` (
   `orderId` int NOT NULL AUTO_INCREMENT,
   `userId` int NOT NULL,
+  `sellerId` int DEFAULT NULL,
   `ticketId` int NOT NULL,
   `quantity` int NOT NULL,
   `orderDate` datetime NOT NULL,
@@ -98,12 +99,14 @@ CREATE TABLE `orders` (
   PRIMARY KEY (`orderId`),
   KEY `userId` (`userId`),
   KEY `ticketId` (`ticketId`),
+  KEY `sellerId` (`sellerId`),
   CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`userId`),
   CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`ticketId`) REFERENCES `tickets` (`ticketId`),
   CONSTRAINT `orders_ibfk_3` FOREIGN KEY (`userId`) REFERENCES `users` (`userId`),
   CONSTRAINT `orders_ibfk_4` FOREIGN KEY (`ticketId`) REFERENCES `tickets` (`ticketId`),
   CONSTRAINT `orders_ibfk_5` FOREIGN KEY (`ticketId`) REFERENCES `tickets` (`ticketId`),
-  CONSTRAINT `orders_ibfk_6` FOREIGN KEY (`ticketId`) REFERENCES `tickets` (`ticketId`)
+  CONSTRAINT `orders_ibfk_6` FOREIGN KEY (`ticketId`) REFERENCES `tickets` (`ticketId`),
+  CONSTRAINT `orders_ibfk_7` FOREIGN KEY (`sellerId`) REFERENCES `users` (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -277,4 +280,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-06-10 16:19:41
+-- Dump completed on 2023-06-10 18:47:31
