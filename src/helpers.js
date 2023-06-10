@@ -30,29 +30,15 @@ const releaseConnection = (connection) => new Promise((resolve, reject) => {
 });
 
 // Helper function (mengeksekusi SQL query)
-const executeQuery = (query, values) => new Promise((resolve, reject) => {
-  getConnectionFromPool()
-    .then((connection) => {
-      connection.query(query, values, (error, result) => {
-        releaseConnection(connection)
-          .then(() => {
-            if (error) {
-              reject(error);
-            } else {
-              resolve(result);
-            }
-          })
-          .catch((releaseError) => {
-            reject(releaseError);
-          });
-      });
-    })
-    .catch((connectionError) => {
-      reject(connectionError);
-    });
+const executeQuery = (connection, query, values) => new Promise((resolve, reject) => {
+  connection.query(query, values, (error, result) => {
+    if (error) {
+      reject(error);
+    } else {
+      resolve(result);
+    }
+  });
 });
-
-
 
 module.exports = {
   getConnectionFromPool,

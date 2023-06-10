@@ -3,6 +3,8 @@ const {
   loginUserHandler,
   getAllUsersHandler,
   getUserByIdHandler,
+  getSellerTicketsHandler,
+  getBuyerTicketsHandler,
   updateUserHandler,
   deleteUserHandler,
 } = require('../handlers/userHandlers');
@@ -21,19 +23,31 @@ const userRoutes = [
   },
 
   {
-    method: 'POST',
+    method: 'GET',
     path: '/users',
     handler: getAllUsersHandler,
   },
 
   {
-    method: 'POST',
+    method: 'GET',
     path: '/users/{userId}',
     handler: getUserByIdHandler,
   },
 
   {
-    method: 'POST',
+    method: 'GET',
+    path: '/users/{userId}/tickets/seller',
+    handler: getSellerTicketsHandler,
+  },
+
+  {
+    method: 'GET',
+    path: '/users/{userId}/tickets/buyer',
+    handler: getBuyerTicketsHandler,
+  },
+
+  {
+    method: 'GET',
     path: '/users',
     handler: updateUserHandler,
   },

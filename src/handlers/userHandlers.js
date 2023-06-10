@@ -97,16 +97,18 @@ const getAllUsersHandler = async (request, h) => {
 
 // GET /users/{userId} - Memanggil profil pengguna tertentu
 const getUserByIdHandler = async (request, h) => {
-  const { userId } = request.params;
-  const query = 'SELECT * FROM users WHERE userId = ?';
-  const values = [userId];
-
   try {
-    const users = await executeQuery(query, values);
-    if (users.length > 0) {
+    const { userId } = request.params;
+    const query = 'SELECT * FROM Users WHERE userId = ?';
+    const values = [userId];
+
+    const result = await executeQuery(query, values);
+    const user = result[0];
+
+    if (user) {
       return h.response({
         status: 'success',
-        data: users[0],
+        data: user,
       }).code(200);
     }
     return h.response({
@@ -117,7 +119,53 @@ const getUserByIdHandler = async (request, h) => {
     console.error('Error saat memanggil user:', error);
     return h.response({
       status: 'error',
-      massage: 'Gagal memanggil user',
+      message: 'Gagal memanggil user',
+    }).code(500);
+  }
+};
+
+// GET /users/{userId}/tickets/seller - Memanggil seller
+const getSellerTicketsHandler = async (request, h) => {
+  try {
+    const { userId } = request.params;
+    const query = 'SELECT * FROM Tickets WHERE sellerId = ?';
+    const values = [userId];
+
+    const result = await executeQuery(query, values);
+    const tickets = result;
+
+    return h.response({
+      status: 'success',
+      data: tickets,
+    }).code(200);
+  } catch (error) {
+    console.error('Error while retrieving seller tickets:', error);
+    return h.response({
+      status: 'error',
+      message: 'Failed to retrieve seller tickets',
+    }).code(500);
+  }
+};
+
+// GET /users/{userId}/tickets/buyer - Memanggil buyer
+const getBuyerTicketsHandler = async (request, h) => {
+  try {
+    const { userId } = request.params;
+    const query = 'SELECT * FROM Tickets WHERE buyerId = ?';
+    const values = [userId];
+
+    const result = await executeQuery(query, values);
+    const tickets = result;
+
+    return h.response({
+      status: 'success',
+      data: tickets,
+    }).code(200);
+  } catch (error) {
+    console.error('Error while retrieving buyer tickets:', error);
+    return h.response({
+      status: 'error',
+      message: 'Failed to retrieve buyer tickets',
     }).code(500);
   }
 };
@@ -185,6 +233,8 @@ module.exports = {
   loginUserHandler,
   getAllUsersHandler,
   getUserByIdHandler,
+  getSellerTicketsHandler,
+  getBuyerTicketsHandler,
   updateUserHandler,
   deleteUserHandler,
 };
