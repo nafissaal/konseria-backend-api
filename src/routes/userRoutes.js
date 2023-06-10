@@ -47,7 +47,7 @@ const userRoutes = [
   },
 
   {
-    method: 'GET',
+    method: 'PUT',
     path: '/konseria/users',
     handler: updateUserHandler,
   },
