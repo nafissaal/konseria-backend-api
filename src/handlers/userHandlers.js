@@ -10,15 +10,34 @@ const {
 const createUserHandler = async (request, h) => {
   try {
     const {
-      name, email, username, password, noHP, profileURL,
+      name,
+      email,
+      username,
+      password,
+      noHP,
+      profileURL,
+      genrePreference,
+      artistPreference,
+      venuePreference,
+      cityPreference,
     } = request.payload;
 
     // Hash password SHA-256
     const hashedPassword = crypto.createHash('sha256').update(password).digest('hex');
 
-    const query = 'INSERT INTO Users (name, email, username, password, noHP, profileURL, status) VALUES (?, ?, ?, ?, ?, ?, \'active\')';
-
-    const values = [name, email, username, hashedPassword, noHP, profileURL];
+    const query = 'INSERT INTO Users (name, email, username, password, noHP, profileURL, status, genrePreference, artistPreference, venuePreference, cityPreference) VALUES (?, ?, ?, ?, ?, ?, \'active\', ?, ?, ?, ?)';
+    const values = [
+      name,
+      email,
+      username,
+      hashedPassword,
+      noHP,
+      profileURL,
+      genrePreference,
+      artistPreference,
+      venuePreference,
+      cityPreference,
+    ];
 
     const connection = await getConnectionFromPool();
     const result = await executeQuery(connection, query, values);
@@ -78,7 +97,7 @@ const loginUserHandler = async (request, h) => {
 
 // GET/users - Memanggil semua pengguna
 const getAllUsersHandler = async (request, h) => {
-  const query = 'SELECT * FROM users';
+  const query = 'SELECT * FROM Users';
 
   try {
     const users = await executeQuery(query);
@@ -176,13 +195,31 @@ const updateUserHandler = async (request, h) => {
     const { userId } = request.params;
 
     const {
-      name, email, username, password, noHP, profileURL,
+      name,
+      email,
+      username,
+      noHP,
+      profileURL,
+      genrePreference,
+      artistPreference,
+      venuePreference,
+      cityPreference,
     } = request.payload;
 
-    const query = `UPDATE Users SET name = ?, email = ?, username = ?, password = ?, 
-    noHP = ?, profileURL = ? WHERE userId = ?`;
+    const query = 'UPDATE Users SET name = ?, email = ?, username = ?, noHP = ?, profileURL = ?, genrePreference = ?, artistPreference = ?, venuePreference = ?, cityPreference = ? WHERE userId = ?';
+    const values = [
+      name,
+      email,
+      username,
+      noHP,
+      profileURL,
+      genrePreference,
+      artistPreference,
+      venuePreference,
+      cityPreference,
+      userId,
+    ];
 
-    const values = [name, email, username, password, noHP, profileURL, userId];
 
     const connection = await getConnectionFromPool();
     await executeQuery(connection, query, values);

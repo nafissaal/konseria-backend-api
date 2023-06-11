@@ -149,33 +149,6 @@ LOCK TABLES `payments` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `preferences`
---
-
-DROP TABLE IF EXISTS `preferences`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `preferences` (
-  `userId` int NOT NULL AUTO_INCREMENT,
-  `genrePreference` varchar(255) NOT NULL,
-  `artistPreference` varchar(255) NOT NULL,
-  `venuePreference` varchar(255) NOT NULL,
-  `cityPreference` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`userId`),
-  CONSTRAINT `preferences_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`userId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `preferences`
---
-
-LOCK TABLES `preferences` WRITE;
-/*!40000 ALTER TABLE `preferences` DISABLE KEYS */;
-/*!40000 ALTER TABLE `preferences` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `resaletickets`
 --
 
@@ -258,6 +231,10 @@ CREATE TABLE `users` (
   `noHP` int NOT NULL,
   `profileURL` varchar(255) NOT NULL,
   `status` enum('active','inactive') NOT NULL,
+  `genrePreference` varchar(255) DEFAULT NULL,
+  `artistPreference` varchar(255) DEFAULT NULL,
+  `venuePreference` varchar(255) DEFAULT NULL,
+  `cityPreference` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -280,4 +257,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-06-10 18:47:31
+-- Dump completed on 2023-06-11  7:11:55
