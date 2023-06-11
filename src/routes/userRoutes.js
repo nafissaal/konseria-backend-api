@@ -54,7 +54,7 @@ const userRoutes = [
 
   {
     method: 'DELETE',
-    path: '/konseria/users/{userID}',
+    path: '/konseria/users/{userId}',
     handler: deleteUserHandler,
   },
 
