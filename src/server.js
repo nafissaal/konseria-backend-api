@@ -1,4 +1,5 @@
 const Hapi = require('@hapi/hapi');
+const mysql = require('mysql');
 
 const concertRoutes = require('./routes/concertRoutes');
 const historyRoutes = require('./routes/historyRoutes');
@@ -10,7 +11,7 @@ const userRoutes = require('./routes/userRoutes');
 
 const init = async () => {
   const server = Hapi.server({
-    port: 8000,
+    port: 8080,
     host: process.env.NODE_ENV !== 'production' ? 'localhost' : '0.0.0.0',
     routes: {
       cors: {
@@ -18,6 +19,18 @@ const init = async () => {
       },
     },
   });
+
+  const connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: 'MS7531^_^ql',
+    database: 'konseriadb',
+  });
+  server.connection({
+    host: 'localhost',
+    port: 8000,
+  });
+  connection.connect();
 
   server.route([
     ...concertRoutes,
@@ -32,5 +45,6 @@ const init = async () => {
   await server.start();
   console.log(`Server berjalan pada ${server.info.uri}`);
 };
+
 
 init();
