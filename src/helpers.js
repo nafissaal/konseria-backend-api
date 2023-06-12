@@ -1,11 +1,6 @@
-const mysql = require('mysql');
-
-const pool = mysql.createPool({
-  host: 'localhost',
-  user: 'root',
-  password: 'MS7531^_^ql',
-  database: 'konseriadb',
-});
+const {
+  pool,
+} = require('/.env');
 
 // Helper function (memanggil koneksi dari connection pool)
 const getConnectionFromPool = () => new Promise((resolve, reject) => {
