@@ -1,5 +1,4 @@
 const Hapi = require('@hapi/hapi');
-const mysql = require('mysql');
 
 const concertRoutes = require('./routes/concertRoutes');
 const historyRoutes = require('./routes/historyRoutes');
@@ -19,18 +18,6 @@ const init = async () => {
       },
     },
   });
-
-  const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'MS7531^_^ql',
-    database: 'konseriadb',
-  });
-  server.connection({
-    host: 'localhost',
-    port: 8000,
-  });
-  connection.connect();
 
   server.route([
     ...concertRoutes,
