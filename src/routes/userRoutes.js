@@ -48,7 +48,7 @@ const userRoutes = [
 
   {
     method: 'PUT',
-    path: '/konseria/users',
+    path: '/konseria/users/{userId}',
     handler: updateUserHandler,
   },
 
