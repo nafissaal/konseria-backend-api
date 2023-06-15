@@ -1,6 +1,8 @@
 const {
   getAllTicketsHandler,
   getTicketByIdHandler,
+  getVipTicketsHandler,
+  getStandardTicketsHandler,
   createTicketHandler,
   updateTicketHandler,
   resaleTicketHandler,
@@ -17,6 +19,18 @@ const ticketRoutes = [
     method: 'GET',
     path: '/konseria/tickets/{ticketId}',
     handler: getTicketByIdHandler,
+  },
+
+  {
+    method: 'GET',
+    path: '/konseria/tickets/vip',
+    handler: getVipTicketsHandler,
+  },
+
+  {
+    method: 'GET',
+    path: '/konseria/tickets/standard',
+    handler: getStandardTicketsHandler,
   },
 
   {

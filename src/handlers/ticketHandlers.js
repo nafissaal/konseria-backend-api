@@ -53,6 +53,44 @@ const getTicketByIdHandler = async (request, h) => {
   }
 };
 
+// GET /tickets/vip - Memanggil tiket VIP
+const getVipTicketsHandler = async (request, h) => {
+  try {
+    const query = 'SELECT * FROM tickets WHERE type = "VIP"';
+    const vipTickets = await executeQuery(query);
+
+    return h.response({
+      status: 'success',
+      data: vipTickets,
+    }).code(200);
+  } catch (error) {
+    console.error('Error saat memanggil tiket VIP:', error);
+    return h.response({
+      status: 'error',
+      message: 'Gagal memanggil tiket VIP',
+    }).code(500);
+  }
+};
+
+// GET /tickets/vip - Memanggil tiket standar
+const getStandardTicketsHandler = async (request, h) => {
+  try {
+    const query = 'SELECT * FROM Tickets WHERE type = "Standard"';
+    const standardTickets = await executeQuery(query);
+
+    return h.response({
+      status: 'success',
+      data: standardTickets,
+    }).code(200);
+  } catch (error) {
+    console.error('Error saat memanggil tiket standar:', error);
+    return h.response({
+      status: 'error',
+      message: 'Gagal memanggil tiket standar',
+    }).code(500);
+  }
+};
+
 // POST/tickets - Membuat tiket baru
 const createTicketHandler = async (request, h) => {
   try {
@@ -151,6 +189,8 @@ const resaleTicketHandler = async (request, h) => {
 module.exports = {
   getAllTicketsHandler,
   getTicketByIdHandler,
+  getVipTicketsHandler,
+  getStandardTicketsHandler,
   createTicketHandler,
   updateTicketHandler,
   resaleTicketHandler,

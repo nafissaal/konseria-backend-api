@@ -1,13 +1,13 @@
 const mysql = require('mysql');
 
 const pool = mysql.createPool({
-  host: '192.168.100.156',
-  user: 'root',
+  connectionLimit: 10,
+  host: '34.101.149.199',
+  user: 'konseria-admin',
+  password: 'kOnSeRiA',
   database: 'konseriadb',
-  password: 'MS7531^_^ql',
+  socketPath: '/cloudsql/konseria-389710:asia-southeast2:konseriadb',
 });
-
-
 
 // Helper function (memanggil koneksi dari connection pool)
 const getConnectionFromPool = () => new Promise((resolve, reject) => {

@@ -33,6 +33,7 @@ const createUserHandler = async (request, h) => {
       hashedPassword,
       noHP,
       profileURL,
+      'active',
       genrePreference,
       artistPreference,
       venuePreference,
@@ -97,10 +98,12 @@ const loginUserHandler = async (request, h) => {
 
 // GET/users - Memanggil semua pengguna
 const getAllUsersHandler = async (request, h) => {
-  const query = 'SELECT * FROM Users';
-
   try {
-    const users = await executeQuery(query);
+    const query = 'SELECT * FROM users';
+    const connection = await getConnectionFromPool();
+    const users = await executeQuery(connection, query);
+    await releaseConnection(connection);
+
     return h.response({
       status: 'success',
       data: users,
@@ -109,7 +112,7 @@ const getAllUsersHandler = async (request, h) => {
     console.error('Error saat memanggil user:', error);
     return h.response({
       status: 'error',
-      message: 'Error saat memanggil user',
+      message: 'Gagal memanggil user',
     }).code(500);
   }
 };
