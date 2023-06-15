@@ -191,7 +191,7 @@ CREATE TABLE `tickets` (
   `concertId` int NOT NULL,
   `sellerId` int DEFAULT NULL,
   `buyerId` int DEFAULT NULL,
-  `type` enum('gold','silver','bronze') DEFAULT NULL,
+  `type` enum('vip','standard') DEFAULT NULL,
   `price` decimal(10,0) DEFAULT NULL,
   `quantity` int DEFAULT NULL,
   `avalilableQuantity` int DEFAULT NULL,
@@ -228,7 +228,7 @@ CREATE TABLE `users` (
   `email` varchar(255) NOT NULL,
   `username` varchar(25) NOT NULL,
   `password` varchar(64) NOT NULL,
-  `noHP` int NOT NULL,
+  `noHP` varchar(25) DEFAULT NULL,
   `profileURL` varchar(255) NOT NULL,
   `status` enum('active','inactive') NOT NULL,
   `genrePreference` varchar(255) DEFAULT NULL,
@@ -257,4 +257,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-06-11  7:11:55
+-- Dump completed on 2023-06-15 21:44:39
