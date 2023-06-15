@@ -39,7 +39,7 @@ CREATE TABLE `concerts` (
   `type` enum('offline','online') DEFAULT NULL,
   `rate` enum('1','2','3','4','5') DEFAULT NULL,
   PRIMARY KEY (`concertId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -68,7 +68,7 @@ CREATE TABLE `histories` (
   KEY `orderId` (`orderId`),
   CONSTRAINT `histories_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `orders` (`orderId`),
   CONSTRAINT `histories_ibfk_2` FOREIGN KEY (`orderId`) REFERENCES `orders` (`orderId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -107,7 +107,7 @@ CREATE TABLE `orders` (
   CONSTRAINT `orders_ibfk_5` FOREIGN KEY (`ticketId`) REFERENCES `tickets` (`ticketId`),
   CONSTRAINT `orders_ibfk_6` FOREIGN KEY (`ticketId`) REFERENCES `tickets` (`ticketId`),
   CONSTRAINT `orders_ibfk_7` FOREIGN KEY (`sellerId`) REFERENCES `users` (`userId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -136,7 +136,7 @@ CREATE TABLE `payments` (
   KEY `orderId` (`orderId`),
   CONSTRAINT `payments_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `orders` (`orderId`),
   CONSTRAINT `payments_ibfk_2` FOREIGN KEY (`orderId`) REFERENCES `orders` (`orderId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -167,7 +167,7 @@ CREATE TABLE `resaletickets` (
   CONSTRAINT `resaletickets_ibfk_1` FOREIGN KEY (`ticketId`) REFERENCES `tickets` (`ticketId`),
   CONSTRAINT `resaletickets_ibfk_2` FOREIGN KEY (`sellerId`) REFERENCES `users` (`userId`),
   CONSTRAINT `resaletickets_ibfk_3` FOREIGN KEY (`buyerId`) REFERENCES `users` (`userId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -203,7 +203,7 @@ CREATE TABLE `tickets` (
   CONSTRAINT `tickets_ibfk_2` FOREIGN KEY (`concertId`) REFERENCES `concerts` (`concertId`),
   CONSTRAINT `tickets_ibfk_3` FOREIGN KEY (`sellerId`) REFERENCES `users` (`userId`),
   CONSTRAINT `tickets_ibfk_4` FOREIGN KEY (`buyerId`) REFERENCES `users` (`userId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -236,7 +236,7 @@ CREATE TABLE `users` (
   `venuePreference` varchar(255) DEFAULT NULL,
   `cityPreference` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`userId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

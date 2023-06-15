@@ -27,7 +27,7 @@ def get_topevents():
         # Retrieve the data from the response
         data = response.json()
         # print(data['values'])
-        df = pd.DataFrame.from_dict(data['values'])
+        df = pd.DataFrame.from_dict(data['data'])
 
     # Process and work with the data as needed
         df= df.sort_values("rate",ascending=False)
@@ -84,11 +84,11 @@ def get_vip():
 
     if response.status_code == 200:
         data = response.json()
-        df = pd.DataFrame.from_dict(data['values'])
+        df = pd.DataFrame.from_dict(data['data'])
         i = int(request.args.get('i')) #code id
         event_names = []    
         std = df.iloc[i]['quantity']
-        sisa_std = df.iloc[i]['availableQuantity']
+        sisa_std = df.iloc[i]['avalilableQuantity']
         print(std-sisa_std)
         total_jual=std - sisa_std
         event_names=df.iloc[i]['event_name']
@@ -125,10 +125,10 @@ def get_standard():
 
     if response.status_code == 200:
         data = response.json()
-        df = pd.DataFrame.from_dict(data['values'])
+        df = pd.DataFrame.from_dict(data['data'])
         i = int(request.args.get('i')) #code id   
         std = df.iloc[i]['quantity']
-        sisa_std = df.iloc[i]['availableQuantity']
+        sisa_std = df.iloc[i]['avalilableQuantity']
         print(std-sisa_std)
         total_jual=std - sisa_std
         event_names=df.iloc[i]['event_name']
