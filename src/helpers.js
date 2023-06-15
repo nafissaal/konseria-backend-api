@@ -4,7 +4,7 @@ const mysql = require('mysql');
 //   connectionLimit: 10,
 //   host: '34.101.149.199',
 //   user: 'konseria-admin',
-//   password: 'kOnSeRiA',
+//   password: 'kOnSeRiA', //ganti password yg terakhir
 //   database: 'konseriadb',
 //   socketPath: '/cloudsql/konseria-389710:asia-southeast2:konseriadb',
 // });
@@ -48,7 +48,7 @@ const releaseConnection = (connection) => new Promise((resolve, reject) => {
 //   });
 // });
 const executeQuery = (query, values) => new Promise(async (resolve, reject) => {
-  let connection = await getConnectionFromPool()
+  let connection = await getConnectionFromPool();//perubahan supaya get connection gausah ganti satu satu
   connection.query(query, values, (error, result) => {
     if (error) {
       reject(error);
