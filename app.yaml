@@ -17,4 +17,4 @@ env_variables:
   CLOUD_SQL_USERNAME: konseria-admin
   CLOUD_SQL_PASSWORD: konseria-admin
   CLOUD_SQL_DATABASE_NAME: konseriadb
-  CLOUD_SQL_CONNECTION_NAME: konseria-389710:asia-southeast2:konseriadb
+  CLOUD_SQL_CONNECTION_NAME: konseria:asia-southeast2:konseriadb-instance

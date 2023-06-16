@@ -33,5 +33,8 @@ const init = async () => {
   console.log(`Server berjalan pada ${server.info.uri}`);
 };
 
-
-init();
+try {
+  init();
+} catch (error) {
+  console.error('Error occurred while starting the server:', error);
+}

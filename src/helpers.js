@@ -2,11 +2,14 @@ const mysql = require('mysql');
 
 const pool = mysql.createPool({
   connectionLimit: 10,
-  host: '34.101.149.199',
+  host: '34.128.107.144',
   user: 'konseria-admin',
-  password: 'kOnSeRiA',
+  password: 'konseria-admin',
   database: 'konseriadb',
-  socketPath: '/cloudsql/konseria-389710:asia-southeast2:konseriadb',
+  socketPath: '/cloudsql/konseria:asia-southeast2:konseriadb-instance',
+  connectTimeout: 10000, // 10 seconds
+  waitForConnections: true, // Default: true
+  queueLimit: 0, // Default: 0
 });
 
 // Helper function (memanggil koneksi dari connection pool)
@@ -32,14 +35,20 @@ const releaseConnection = (connection) => new Promise((resolve, reject) => {
 });
 
 // Helper function (mengeksekusi SQL query)
-const executeQuery = (connection, query, values) => new Promise((resolve, reject) => {
-  connection.query(query, values, (error, result) => {
-    if (error) {
-      reject(error);
-    } else {
-      resolve(result);
-    }
-  });
+const executeQuery = (query, values) => new Promise(async (resolve, reject) => {
+  try {
+    let connection = await getConnectionFromPool();
+    connection.query(query, values, (error, result) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(result);
+      }
+    });
+  } catch (error) {
+    console.log(error);
+    reject(error)
+  }
 });
 
 module.exports = {
